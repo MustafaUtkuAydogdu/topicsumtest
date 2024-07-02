@@ -69,17 +69,17 @@ The min-max game can be mathematically represented as follows:
 
 Let's break down this equation:
 
-- $\( D \)$ represents the discriminator network, which tries to maximize its ability to distinguish between real $(\( x \))$ and generated $(\( G(z) \))$ data.
+- \( D \) represents the discriminator network, which tries to maximize its ability to distinguish between real (\( x \)) and generated (\( G(z) \)) data.
   
 - \( G \) represents the generator network, which tries to minimize the ability of the discriminator to distinguish between real and generated data.
 
 - \( V(D, G) \) is the value function, representing the performance of the discriminator and the generator. This function is defined as the following objective function, which is to be maximized by \( D \) and minimized by \( G \):
 
-\[ V(D, G) = \mathbb{E}_{x\sim p_{\text{data}}(x)}[\log D(x)] + \mathbb{E}_{z\sim p_z(z)}[\log(1 - D(G(z)))] \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/31e96840-719c-46db-a5c9-f9f9f84d2711)
 
-- \( p_{\text{data}}(x) \) represents the distribution of real data samples.
+- $\( p_{\text{data}}(x) \)$ represents the distribution of real data samples.
   
-- \( p_z(z) \) represents the prior distribution of the input noise vector \( z \), usually a simple distribution such as uniform or Gaussian.
+- $\( p_z(z) \)$ represents the prior distribution of the input noise vector \( z \), usually a simple distribution such as uniform or Gaussian.
 
 - \( G(z) \) represents the generated data sample obtained by passing random noise \( z \) through the generator network.
 
