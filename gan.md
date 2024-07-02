@@ -296,7 +296,7 @@ The Kantorovich-Rubinstein duality plays a fundamental role in the formulation o
 
 The Kantorovich-Rubinstein duality is a concept from optimal transport theory, specifically relating to the formulation of the Wasserstein distance (also known as Earth Mover's distance). This duality establishes a connection between the Wasserstein distance and the supremum (or maximum) of a certain class of functions.
 
-In the context of WGAN, the goal is to approximate the Wasserstein distance between the distribution of real data (say $\( P_r \)$) and the distribution of generated data (say $\( P_g \)$). The Wasserstein distance $\( W(P_r, P_g) \$ is defined as:
+In the context of WGAN, the goal is to approximate the Wasserstein distance between the distribution of real data (say $\( P_r \)$ ) and the distribution of generated data (say $\( P_g \)$ ). The Wasserstein distance $\( W(P_r, P_g) \)$ is defined as:
 
 ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/1d145eae-c008-4163-b860-10eb135d1b0b)
 
@@ -415,7 +415,7 @@ A self-attention block, also known as a self-attention mechanism or transformer 
 
 
 
-The Self-Attention GAN (SAGAN) builds upon the Spectral Normalization GAN (SNGAN) framework by integrating self-attention mechanisms into both the generator and discriminator networks. The primary motivation behind introducing self-attention is to capture long-distance dependencies within the model, ensuring consistency across distant parts of generated images. This mechanism can be interpreted as a form of feature representation smoothing, enhancing the coherence and quality of generated samples. In SAGAN, self-attention is implemented using attention coefficients \( \beta_{i,j} \), computed as \( \frac{\exp(s_{ij})}{\sum_j \exp(s_{ij})} \), where \( s_{ij} \) represents the pairwise similarity scores between spatial positions \( i \) and \( j \). The output \( o_{i} \) for each position \( i \) is then computed as a weighted sum of the feature vectors \( h(x_j) \) across all positions \( j \), guided by the attention coefficients.
+The Self-Attention GAN (SAGAN) builds upon the Spectral Normalization GAN (SNGAN) framework by integrating self-attention mechanisms into both the generator and discriminator networks. The primary motivation behind introducing self-attention is to capture long-distance dependencies within the model, ensuring consistency across distant parts of generated images. This mechanism can be interpreted as a form of feature representation smoothing, enhancing the coherence and quality of generated samples. In SAGAN, self-attention is implemented using attention coefficients $\( \beta_{i,j} \)$, computed as $\( \frac{\exp(s_{ij})}{\sum_j \exp(s_{ij})} \)$, where $\( s_{ij} \)$ represents the pairwise similarity scores between spatial positions \( i \) and \( j \). The output $\( o_{i} \)$ for each position \( i \) is then computed as a weighted sum of the feature vectors $\( h(x_j) \)$ across all positions \( j \), guided by the attention coefficients.
 
 Key features of SAGAN include the application of spectral normalization to both the generator and discriminator weight matrices, contrary to the conventional approach of conditioning only the discriminator in WGAN. This approach helps stabilize training and improve the quality of generated samples. Additionally, SAGAN integrates self-attention into both the generator and discriminator networks, enabling the model to effectively capture spatial relationships and dependencies across image regions.
 
