@@ -385,21 +385,21 @@ A self-attention block, also known as a self-attention mechanism or transformer 
    The input embeddings are transformed into three sets of vectors: query (\( Q \)), key (\( K \)), and value (\( V \)) vectors. These transformations are typically achieved using learned linear transformations (i.e., fully connected layers).
 
 3. **Similarity Scores Calculation:**
-   For each query vector \( q_i \), the self-attention block computes a set of similarity scores with all key vectors \( k_j \) using the dot product:
+   For each query vector $\( q_i \)$, the self-attention block computes a set of similarity scores with all key vectors $\( k_j \)$ using the dot product:
 
-   \[ \text{Attention}(q_i, k_j) = \frac{q_i \cdot k_j}{\sqrt{d_k}} \]
+   $\[ \text{Attention}(q_i, k_j) = \frac{q_i \cdot k_j}{\sqrt{d_k}} \]$
 
-   Here, \( d_k \) is the dimensionality of the key vectors.
+   Here, $\( d_k \)$ is the dimensionality of the key vectors.
 
 4. **Softmax and Attention Weights:**
-   The similarity scores are passed through a softmax function to obtain attention weights (\( \alpha_{ij} \)) that represent the importance of each key vector \( k_j \) relative to the query vector \( q_i \):
+   The similarity scores are passed through a softmax function to obtain attention weights $(\( \alpha_{ij} \))$ that represent the importance of each key vector $\( k_j \)$ relative to the query vector $\( q_i \)$:
 
-   \[ \alpha_{ij} = \frac{\exp(\text{Attention}(q_i, k_j))}{\sum_j \exp(\text{Attention}(q_i, k_j))} \]
+   $\[ \alpha_{ij} = \frac{\exp(\text{Attention}(q_i, k_j))}{\sum_j \exp(\text{Attention}(q_i, k_j))} \]$
 
 5. **Weighted Sum of Values:**
-   Finally, the attention weights (\( \alpha_{ij} \)) are used to compute a weighted sum of the corresponding value vectors (\( v_j \)):
+   Finally, the attention weights $(\( \alpha_{ij} \))$ are used to compute a weighted sum of the corresponding value vectors $(\( v_j \))$:
 
-   \[ \text{Output}(q_i) = \sum_j \alpha_{ij} v_j \]
+   $\[ \text{Output}(q_i) = \sum_j \alpha_{ij} v_j \]$
 
    The resulting output represents a refined representation of the input based on the learned attention weights.
 
