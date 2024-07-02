@@ -65,7 +65,7 @@ The min-max game is a concept primarily used in game theory, optimization, and m
 
 The min-max game can be mathematically represented as follows:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/6536d92b-d7fc-4c24-8bf5-844d298521a5)
+![resim](ts/2.png)
 
 Let's break down this equation:
 
@@ -75,17 +75,16 @@ Let's break down this equation:
 
 - \( V(D, G) \) is the value function, representing the performance of the discriminator and the generator. This function is defined as the following objective function, which is to be maximized by \( D \) and minimized by \( G \):
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/31e96840-719c-46db-a5c9-f9f9f84d2711)
-
+![resim](ts/3.png)
 - $\( p_{\text{data}}(x) \)$ represents the distribution of real data samples.
   
 - $\( p_z(z) \)$ represents the prior distribution of the input noise vector \( z \), usually a simple distribution such as uniform or Gaussian.
 
 - \( G(z) \) represents the generated data sample obtained by passing random noise \( z \) through the generator network.
 
-- The first term ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/916b2b03-894f-40a5-a75b-c56aea1ef9bf) calculates the expected value of the log-probability that the discriminator assigns to real data samples. The discriminator wants to maximize this value, indicating that it correctly classifies real data as real.
+- The first term ![resim](ts/4.png) calculates the expected value of the log-probability that the discriminator assigns to real data samples. The discriminator wants to maximize this value, indicating that it correctly classifies real data as real.
   
-- The second term ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/96f849b4-33f9-4e35-8b79-9e053b6571ef) calculates the expected value of the log-probability that the discriminator assigns to generated (fake) data samples. The generator wants to minimize this value, indicating that it successfully fools the discriminator into classifying fake data as real.
+- The second term ![resim](ts/5.png) calculates the expected value of the log-probability that the discriminator assigns to generated (fake) data samples. The generator wants to minimize this value, indicating that it successfully fools the discriminator into classifying fake data as real.
 
 By iteratively updating the parameters of the generator and the discriminator networks using gradient descent/ascent based on this min-max objective, the GAN training process seeks a Nash equilibrium where the generator produces samples that are indistinguishable from real data, and the discriminator cannot reliably differentiate between real and fake samples.
 
@@ -95,40 +94,35 @@ The objective for the discriminator \( D \) is to maximize the value function \(
 
 The update rule for the discriminator involves ascending the gradient of the loss function with respect to its parameters:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/84dc3ec2-b20d-4167-beb7-816b61b5d926)
+![resim](ts/6.png)
 
 Where:
 - $\( \eta \)$ is the learning rate.
 
 The gradient of \( V(D, G) \) with respect to $\( \theta_D \)$ can be computed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/58872131-0c68-410e-8023-e31c3a2bf08b)
-
+![resim](ts/7.png)
 ### Generator Update:
 
 The objective for the generator \( G \) is to minimize the value function \( V(D, G) \). Therefore, the update rule for the generator parameters $\( \theta_G \)$ is obtained by taking the gradient of \( -V(D, G) \) (since we're minimizing) with respect to $\( \theta_G \)$.
 
 The update rule for the generator involves descending the gradient of the negative loss function with respect to its parameters:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/e6fc976c-8714-407b-a1c7-6ecc0b7ca7ac)
-
+![resim](ts/8.png)
 Where:
 - $\( \eta \)$ is the learning rate.
 
 The gradient of \( -V(D, G) \) with respect to $\( \theta_G \)$ can be computed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/be6bf821-9e73-40df-8c6e-6fb107b561f3)
-
+![resim](ts/9.png)
 
 ### GAN Objective
 
 #### Optimal Bayesian Discriminator 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/a921f6f0-1f90-4359-a7c1-e40d47cfb3fc)
-
+![resim](ts/10.png)
 
 #### Insertion of the Optimal Discriminator into GAN MLE Objective 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/6967e7a2-3020-48ae-9853-42a9dc8dfdd8)
-
+![resim](ts/11.png)
 
 Hence, although not defining density explicitly, GANs can be seen as minimizing the Jensen-Shannon Divergence between the real data distribution and the generated data distribution. This approach allows GANs to generate high-quality samples without explicitly estimating the likelihood of the data.
 
@@ -160,13 +154,11 @@ The Jensen-Shannon Divergence (JSD) is a symmetrized and smoothed version of the
 
 The Kullback-Leibler Divergence (KLD) between two probability distributions $\( p_{\text{data}}(x) \)$ and $\( p_{\text{generated}}(x) \)$ can be expressed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/0a71fd81-427a-48a8-a787-93a7d9662172)
-
+![resim](ts/12.png)
 This formula quantifies the divergence between the probability distribution of real data $(\( p_{\text{data}}(x) \))$ and the probability distribution of generated data $(\( p_{\text{generated}}(x) \))$. It measures the average logarithmic difference between the two distributions over all possible values of the random variable $\( x \)$.
 
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/75bc7420-588f-43ad-8ac8-81776adb9cb0)
-
+![resim](ts/13.png)
 
 **KLD:** Heavily penalizes assigning very low density to real data samples
 
@@ -184,16 +176,14 @@ Original Issue: Generator samples confidently classified as fake by the discrimi
 
 **Fix**: Avoid fully training the discriminator (\(D\)) in inner optimization.
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/fe129b5c-629f-488f-9318-b8808e814af5)
-
+![resim](ts/14.png)
 
 ##### 2nd Alternative:
 Original Issue: Generator samples confidently classified as fake by the discriminator receive no gradient for the generator update.
 
 **Fix**: Use non-saturating loss for when the discriminator is confident about fake.
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/c721fa4b-227f-42ac-b165-9b5697747ff4)
-
+![resim](ts/15.png)
 
 **Interpretation:** Instead of minimizing the probability of being fake, the non-saturating loss aims to maximize the probability of being real. This helps to provide gradients for the generator even when the discriminator is confident about the fakeness of generated samples.
 
@@ -219,8 +209,7 @@ Remarkably, DC-GAN demonstrates the potential for noise arithmetic, enabling the
 **Feature Matching**
 Feature matching in GANs introduces a supplementary loss term based on the feature representations extracted from an intermediate layer ('f') of the discriminator ('D'). Mathematically, this can be expressed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/b80d956e-c2e1-42e7-af7e-e6ecf79affae)
-
+![resim](ts/16.png)
 
 This loss term encourages the generator to produce samples that not only deceive the discriminator but also match the intermediate feature representations of real data samples, thereby enriching GAN training and promoting stability in the learning process.
 
@@ -240,8 +229,7 @@ In essence, the Minibatch Discriminator serves as a mechanism for the GAN to sel
 **Historical Averaging in D parameters:**
  Historical averaging in discriminator parameters involves maintaining a running average of past parameter values during training. To regulate and prevent rapid, large changes in the discriminator (D) parameters during GAN training, applying smoothing over time is essential. This is typically achieved through methods like historical averaging. By incorporating historical information into parameter updates, this regularization technique helps stabilize training and promotes smoother transitions in the discriminator's parameters over successive iterations. Below equation demonstrates the implementation of the algorithm:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/edab74ee-2eb0-41db-87dc-75b34cc749bf)
-
+![resim](ts/17.png)
 
   
 
@@ -279,12 +267,10 @@ The core concept of WGAN involves replacing the discriminator with a critic netw
 WGAN operates on the premise that the dual of the Earth Mover's distance is the supremum of the difference between the expectations of a 1-Lipschitz function across real and generated samples. 
 
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/a183fa55-e4f7-43ab-ad56-d457bf74658b)
-
+![resim](ts/18.png)
 Lipschitz continuity is essential for stability and convergence in optimization, including in Generative Adversarial Networks (GANs). Mathematically, a function \( f \) is Lipschitz continuous if its output change is bounded by a constant multiple of its input change, expressed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/c39f63b9-b4d1-47a4-a052-8092a6c59166)
-
+![resim](ts/19.png)
 This property ensures that a smooth function exhibits a small change in output for a small change in input. In GANs, particularly in Wasserstein GANs (WGANs), enforcing Lipschitz continuity on the discriminator helps stabilize training. This is achieved by constraining the weights of the discriminator to have a bounded spectral norm, typically through a regularization term:
 
 
@@ -298,19 +284,18 @@ The Kantorovich-Rubinstein duality is a concept from optimal transport theory, s
 
 In the context of WGAN, the goal is to approximate the Wasserstein distance between the distribution of real data (say $\( P_r \)$ ) and the distribution of generated data (say $\( P_g \)$ ). The Wasserstein distance $\( W(P_r, P_g) \)$ is defined as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/1d145eae-c008-4163-b860-10eb135d1b0b)
-
+![resim](ts/20.png)
 where $\( \Gamma(P_r, P_g) \)$ represents the set of joint distributions whose marginals are $\( P_r \)$ and $\( P_g \)$, and $\( c(x, y) \)$ is a cost function measuring the "distance" between elements \( x \) and \( y \) in the input space.
 
 According to Kantorovich-Rubinstein duality, the Wasserstein distance $\( W(P_r, P_g) \)$ can be expressed as:
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/10f74a9b-7a5b-440f-82f7-2a0be829f9c6)
+![resim](ts/21.png)
 
 where $\( \| f \|_{\text{Lip}} \leq 1 \)$ denotes that \( f \) is a 1-Lipschitz function (i.e., the Lipschitz constant of \( f \) is less than or equal to 1). This formulation represents the supremum (maximum) of the difference in expectations of a 1-Lipschitz function \( f \) applied to samples from $\( P_r \)$ and $\( P_g \)$.
 
 Intuitively, Lipschitz continuity means that the function \( f \) does not "stretch" distances too much. Specifically, the Lipschitz constant \( L \) provides an upper bound on how much the function value can change relative to changes in the input. If \( L = 0 \), \( f \) is called "locally constant"; otherwise, larger values of \( L \) indicate greater permitted variation in the function's values over its domain.
 
-In WGAN, the discriminator (or critic) network \( f \) is trained to approximate this supremum. During training, the critic's objective is to maximize the difference between ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/5d48d0ac-0bc7-456f-b0ff-4697e7acc176)
+In WGAN, the discriminator (or critic) network \( f \) is trained to approximate this supremum. During training, the critic's objective is to maximize the difference between ![resim](ts/22.png)
 , which effectively estimates the Wasserstein distance between $\( P_r \)$ and $\( P_g \)$.
 
 By leveraging Kantorovich-Rubinstein duality, WGAN provides a principled way to train the discriminator network to estimate the Wasserstein distance, resulting in more stable and meaningful gradients compared to traditional GANs. This theoretical foundation underpins the effectiveness of WGAN in generating high-quality samples and improving training stability.
@@ -324,7 +309,7 @@ In gradient clipping, the goal is to control the magnitude of gradients during t
 During training, after computing the gradients of the critic's parameters with respect to its loss, these gradients are clipped to ensure they do not exceed a specified threshold. This is achieved using operations like:
 GANs with gradient clipping aim to prevent exploding gradients by directly limiting the magnitude of the gradients during training. This technique, similar to what was initially used in Wasserstein GANs (WGANs), lacks the theoretical underpinning of the Wasserstein distance. By clipping the gradients of the critic (discriminator) network, denoted as $\( \nabla_{\theta} \)$, to ensure they do not exceed a certain threshold \( c \):
 
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/30039cf5-af5c-43cf-92c3-b91023d6ae5b)
+![resim](ts/23.png)
 
 However, this approach is considered suboptimal, as noted by its authors. In contrast, WGAN-GP (WGAN with Gradient Penalty) offers a more sophisticated solution to stabilize training without relying on manual clipping. WGAN-GP extends the WGAN framework by addressing potential issues with weight clipping, which was originally used in WGAN. Instead of clipping weights, which can lead to suboptimal convergence and model behavior, WGAN-GP adds a gradient penalty term to the loss function.
 
@@ -340,7 +325,7 @@ WGAN-GP extends the Wasserstein GAN (WGAN) framework by addressing issues associ
 The gradient penalty term is added to the WGAN loss function and is calculated based on the norm of the gradients of the critic's output with respect to interpolated samples between real and generated data points. The loss function is modified to include this penalty term, encouraging the critic to be 1-Lipschitz without the need for explicit weight clipping.
 
 **Mathematical Formulation:**
-![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/3d87ccee-ce5a-46c8-8beb-95a68ab7ae20)
+![resim](ts/24.png)
 
 
 **Relation to Lipschitz Continuity:**
