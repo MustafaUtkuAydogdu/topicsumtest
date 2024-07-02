@@ -53,6 +53,7 @@ The conceptualization of Generative Adversarial Networks (GANs) revolves around 
 With density models, we used the Kullback-Leibler divergence \( \text{KL}(p_{\text{data}} \parallel p_{\text{model}}) \), leading to the objective \( \mathbb{E}_{x \sim p_{\text{data}}} [\log p_{\theta}(x)] \), where \( p_{\theta}(x) \) is explicitly modeled. However, in the context of GANs, we do not have an explicit form for \( p_{\theta}(x) \).
 
 
+
 This absence necessitates the use of alternative distance measures that may behave differently from maximum likelihood estimation. Examples of such distance measures include Maximum Mean Discrepancy (MMD), Jensen-Shannon Divergence (JSD), and Earth Mover’s Distance (EMD), among others.
 
 ### Adversarial Training
