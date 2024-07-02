@@ -50,7 +50,7 @@ The conceptualization of Generative Adversarial Networks (GANs) revolves around 
 
 
 ### Distance Between Distributions
-With density models, we used the Kullback-Leibler divergence $\( KL(p_{\text{data}} \parallel p_{\text{model}}) \)$, leading to the objective \( \mathbb{E}_{x \sim p_{\text{data}}} [\log p_{\theta}(x)] \), where \( p_{\theta}(x) \) is explicitly modeled. However, in the context of GANs, we do not have an explicit form for \( p_{\theta}(x) \). 
+With density models, we used the Kullback-Leibler divergence $\( KL(p_{\text{data}} \parallel p_{\text{model}}) \)$, leading to the objective $\( \mathbb{E}_{x \sim p_{\text{data}}} [\log p_{\theta}(x)] \)$, where $\( p_{\theta}(x) \)$ is explicitly modeled. However, in the context of GANs, we do not have an explicit form for $\( p_{\theta}(x) \)$. 
 
 
 
