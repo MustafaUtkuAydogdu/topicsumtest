@@ -311,7 +311,7 @@ where $\( \| f \|_{\text{Lip}} \leq 1 \)$ denotes that \( f \) is a 1-Lipschitz 
 Intuitively, Lipschitz continuity means that the function \( f \) does not "stretch" distances too much. Specifically, the Lipschitz constant \( L \) provides an upper bound on how much the function value can change relative to changes in the input. If \( L = 0 \), \( f \) is called "locally constant"; otherwise, larger values of \( L \) indicate greater permitted variation in the function's values over its domain.
 
 In WGAN, the discriminator (or critic) network \( f \) is trained to approximate this supremum. During training, the critic's objective is to maximize the difference between ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/5d48d0ac-0bc7-456f-b0ff-4697e7acc176)
-, which effectively estimates the Wasserstein distance between \( P_r \) and \( P_g \).
+, which effectively estimates the Wasserstein distance between $\( P_r \)$ and $\( P_g \)$.
 
 By leveraging Kantorovich-Rubinstein duality, WGAN provides a principled way to train the discriminator network to estimate the Wasserstein distance, resulting in more stable and meaningful gradients compared to traditional GANs. This theoretical foundation underpins the effectiveness of WGAN in generating high-quality samples and improving training stability.
 ##### How to ensure Lipschitz Continuity:
@@ -322,9 +322,9 @@ In gradient clipping, the goal is to control the magnitude of gradients during t
 
 **Implementation:**
 During training, after computing the gradients of the critic's parameters with respect to its loss, these gradients are clipped to ensure they do not exceed a specified threshold. This is achieved using operations like:
-GANs with gradient clipping aim to prevent exploding gradients by directly limiting the magnitude of the gradients during training. This technique, similar to what was initially used in Wasserstein GANs (WGANs), lacks the theoretical underpinning of the Wasserstein distance. By clipping the gradients of the critic (discriminator) network, denoted as \( \nabla_{\theta} \), to ensure they do not exceed a certain threshold \( c \):
+GANs with gradient clipping aim to prevent exploding gradients by directly limiting the magnitude of the gradients during training. This technique, similar to what was initially used in Wasserstein GANs (WGANs), lacks the theoretical underpinning of the Wasserstein distance. By clipping the gradients of the critic (discriminator) network, denoted as $\( \nabla_{\theta} \)$, to ensure they do not exceed a certain threshold \( c \):
 
-\[ \nabla_{\theta}' = \text{clip}(\nabla_{\theta}, -c, c) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/30039cf5-af5c-43cf-92c3-b91023d6ae5b)
 
 However, this approach is considered suboptimal, as noted by its authors. In contrast, WGAN-GP (WGAN with Gradient Penalty) offers a more sophisticated solution to stabilize training without relying on manual clipping. WGAN-GP extends the WGAN framework by addressing potential issues with weight clipping, which was originally used in WGAN. Instead of clipping weights, which can lead to suboptimal convergence and model behavior, WGAN-GP adds a gradient penalty term to the loss function.
 
@@ -340,11 +340,8 @@ WGAN-GP extends the Wasserstein GAN (WGAN) framework by addressing issues associ
 The gradient penalty term is added to the WGAN loss function and is calculated based on the norm of the gradients of the critic's output with respect to interpolated samples between real and generated data points. The loss function is modified to include this penalty term, encouraging the critic to be 1-Lipschitz without the need for explicit weight clipping.
 
 **Mathematical Formulation:**
-Let \( \hat{x} \) be interpolated samples between real data \( x \) and generated data \( y \). The gradient penalty term \( \text{GP} \) is calculated as:
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/3d87ccee-ce5a-46c8-8beb-95a68ab7ae20)
 
-\[ \text{GP} = \lambda \cdot \mathbb{E}_{\hat{x}} \left[ \left( \| \nabla_{\hat{x}} f(\hat{x}) \|_2 - 1 \right)^2 \right] \]
-
-where \( f(\hat{x}) \) is the output of the critic network on interpolated samples, \( \lambda \) is a regularization parameter, and \( \| \cdot \|_2 \) denotes the \( L^2 \) norm.
 
 **Relation to Lipschitz Continuity:**
 WGAN-GP tries to enforce a Lipschitz continuity by penalizing deviations of the critic's gradient norm from 1. This penalty helps stabilize the training process and avoids issues associated with manual weight clipping, ensuring that the critic remains Lipschitz continuous throughout training.
@@ -354,12 +351,12 @@ One important point to notice is that both Gradient Clipping and Gradient Penalt
 
 To overcome these issues and ensure 1-Lipschitz continuity with a real constraint, the Spectral Normalization method is suggested. The key idea behind spectral normalization is linking the Lipschitzness of the discriminator to the Lipschitzness and spectral norm of each layer.
 
-The neural network can be represented as a combination of layers \( L_1, L_2, \ldots, L_n \), with weight matrices \( W_1, W_2, \ldots, W_n \). Here, the concept of the singular value of a weight matrix is crucial. The largest singular value of each weight matrix represents the maximum amplification that can be applied to the unit vector that it multiplies. To ensure 1-Lipschitz continuity, the weights of each layer are normalized with respect to the largest singular value. 
+The neural network can be represented as a combination of layers $\( L_1, L_2, \ldots, L_n \)$, with weight matrices $\( W_1, W_2, \ldots, W_n \)$. Here, the concept of the singular value of a weight matrix is crucial. The largest singular value of each weight matrix represents the maximum amplification that can be applied to the unit vector that it multiplies. To ensure 1-Lipschitz continuity, the weights of each layer are normalized with respect to the largest singular value. 
 
 Intuitively, the Lipschitz norm definition measures the smoothness of the layer in terms of the input that yields the Jacobian matrix with the largest singular value. Thus, this normalization provides 1-Lipschitz continuity for a specific layer. Another important property is that in general, with non-linear activations, if the activation function is 1-Lipschitz (e.g., ReLU, LeakyReLU, and many others), the composition of multiple 1-Lipschitz layers also maintains 1-Lipschitz continuity.
 
-\[ W_{\text{normalized}} = \frac{W}{\sigma(W)} \]
-Here, \( \sigma(W) \) represents the spectral norm of the weight matrix \( W \). This normalization ensures that the spectral norm of the normalized weight matrix is 1, effectively constraining the Lipschitz constant of the matrix and stabilizing the training process.
+$\[ W_{\text{normalized}} = \frac{W}{\sigma(W)} \]$
+Here, $\( \sigma(W) \)$ represents the spectral norm of the weight matrix $\( W \)$. This normalization ensures that the spectral norm of the normalized weight matrix is 1, effectively constraining the Lipschitz constant of the matrix and stabilizing the training process.
 
 A thorough analysis reveals the intricate design decisions underlying Spectral GAN, particularly its adept integration of established techniques. Notably, it implements conditional batch normalization in the generator, drawing upon the seminal works of Dumoulin et al. (2017) and de Vries et al. (2017). Simultaneously, the discriminator employs the innovative projection discriminator method pioneered by Miyato and Koyama (2018). 
 
