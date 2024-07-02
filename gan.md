@@ -123,39 +123,12 @@ The gradient of \( -V(D, G) \) with respect to $\( \theta_G \)$ can be computed 
 ### GAN Objective
 
 #### Optimal Bayesian Discriminator 
-The optimal discriminator \( D^*(x) \) is defined as the classifier which perfectly distinguishes between real data samples and generated data samples. It assigns the probability of a sample being real as \( D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \), where \( p_{\text{data}}(x) \) is the probability density of real data samples and \( p_g(x) \) is the probability density of generated data samples.
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/a921f6f0-1f90-4359-a7c1-e40d47cfb3fc)
 
-$$
-\begin{equation*}
-    \begin{split}
-        V(G, D) &= \mathbb{E}_{x \sim p_{\textrm{data}}} \left[ \log D(x) \right] + \mathbb{E}_{z \sim p(z)} \left[ \log (1 - D(G(z))) \right] \\
-         &= \int_{x} p_{\textrm{data}}(x) \log D(x) \, dx + \int_{z} p(z) \log (1-D(G(z))) \, dz\\
-         &= \int_{x} p_{\textrm{data}}(x) \log D(x) \, dx + \int_{x} p_g(x) \log (1-D(x)) \, dx \\ 
-         &= \int_{x} \left[ p_{\textrm{data}}(x) \log D(x) + p_g(x) \log (1 - D(x)) \right] \, dx 
-    \end{split}
-\end{equation*}
-$$
-
-$y^* = \frac{a}{a+b} \quad \forall [a,b] \in \mathbb{R}^2[0,0] $
-
-\[ D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \]
 
 #### Insertion of the Optimal Discriminator into GAN MLE Objective 
-Having defined the optimal discriminator \( D^*(x) \), we can now insert it into the GAN MLE objective function. This insertion allows us to express the GAN MLE objective in terms of the Kullback-Leibler Divergence (KLD) and the Jensen-Shannon Divergence (JSD) between the real data distribution \( p_{\text{data}}(x) \) and the generated data distribution \( p_g(x) \).
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/6967e7a2-3020-48ae-9853-42a9dc8dfdd8)
 
-\[ C(G) = \max_D V(G, D) \]
-
-\[ E_{x\sim p_{\text{data}}} [\log D^*(x)] \]
-\[ E_{z\sim p_z} [\log(1 - D^*G(z))] \]
-
-\[ E_{x\sim p_{\text{data}}} \left[ \log \left( \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right) \right] + E_{x\sim p_g} \left[ \log \left( \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right) \right] \]
-
-$$E_x[log(a(x))]-log2=E_x[-log 2 + log a(x)]=E_x[log (a(x)/2)]$$
-$$ 
-\color{blue}KL(p_{data}||\frac{p_{data}+p_g}{2})+KL(p_g||\frac{p_{data}+p_g}{2})-2\log2
-$$
-$$
-\color{blue} 2JSD(p_{data}||p_g)+\text{const} $$
 
 Hence, although not defining density explicitly, GANs can be seen as minimizing the Jensen-Shannon Divergence between the real data distribution and the generated data distribution. This approach allows GANs to generate high-quality samples without explicitly estimating the likelihood of the data.
 
@@ -185,31 +158,15 @@ The Jensen-Shannon Divergence (JSD) is a symmetrized and smoothed version of the
 - **Lower Quality Examples:** While KLD promotes mode covering and diversity in the generated samples, it may lead to lower quality examples compared to JSD. This is because the emphasis on covering all modes can sometimes result in the generation of unrealistic or less coherent samples. Since KLD does not prioritize producing samples that closely resemble real data, the generated samples may lack fine details, textures, or overall realism, leading to a perceptual decrease in quality.
 
 
-The Kullback-Leibler Divergence (KLD) between two probability distributions \( p_{\text{data}}(x) \) and \( p_{\text{generated}}(x) \) can be expressed as:
+The Kullback-Leibler Divergence (KLD) between two probability distributions $\( p_{\text{data}}(x) \)$ and $\( p_{\text{generated}}(x) \)$ can be expressed as:
 
-\[ \text{KLD}(p_{\text{data}} \| p_{\text{generated}}) = \int_{-\infty}^{\infty} p_{\text{data}}(x) \log \frac{p_{\text{data}}(x)}{p_{\text{generated}}(x)} \, dx \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/0a71fd81-427a-48a8-a787-93a7d9662172)
 
-This formula quantifies the divergence between the probability distribution of real data (\( p_{\text{data}}(x) \)) and the probability distribution of generated data (\( p_{\text{generated}}(x) \)). It measures the average logarithmic difference between the two distributions over all possible values of the random variable \( x \).
+This formula quantifies the divergence between the probability distribution of real data $(\( p_{\text{data}}(x) \))$ and the probability distribution of generated data $(\( p_{\text{generated}}(x) \))$. It measures the average logarithmic difference between the two distributions over all possible values of the random variable $\( x \)$.
 
 
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/75bc7420-588f-43ad-8ac8-81776adb9cb0)
 
-The Jensen-Shannon Divergence (JSD) between two probability distributions \( p_{\text{data}}(x) \) and \( p_{\text{generated}}(x) \) can be explicitly computed as:
-
-\[ \text{JSD}(p_{\text{data}}, p_{\text{generated}}) = \frac{1}{2} \left( \text{KLD}\left(p_{\text{data}} \| M\right) + \text{KLD}\left(p_{\text{generated}} \| M\right) \right) \]
-
-Where \( M \) is the average distribution defined as:
-
-\[ M(x) = \frac{1}{2} \left( p_{\text{data}}(x) + p_{\text{generated}}(x) \right) \]
-
-And \( \text{KLD}(p_{\text{data}} \| p_{\text{generated}}) \) is the Kullback-Leibler Divergence between distributions \( p_{\text{data}} \) and \( p_{\text{generated}} \), which is given by:
-
-\[ \text{KLD}(p_{\text{data}} \| p_{\text{generated}}) = \int_{-\infty}^{\infty} p_{\text{data}}(x) \log \frac{p_{\text{data}}(x)}{p_{\text{generated}}(x)} \, dx \]
-
-or
-
-\[ \text{KLD}(p_{\text{data}} \| p_{\text{generated}}) = \sum_{x} p_{\text{data}}(x) \log \frac{p_{\text{data}}(x)}{p_{\text{generated}}(x)} \]
-
-Where the sum or integral is taken over all possible values of the random variable \( x \).
 
 **KLD:** Heavily penalizes assigning very low density to real data samples
 
