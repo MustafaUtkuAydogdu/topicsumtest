@@ -54,6 +54,7 @@ With density models, we used the Kullback-Leibler divergence \( \text{KL}(p_{\te
 
 
 
+
 This absence necessitates the use of alternative distance measures that may behave differently from maximum likelihood estimation. Examples of such distance measures include Maximum Mean Discrepancy (MMD), Jensen-Shannon Divergence (JSD), and Earth Mover’s Distance (EMD), among others.
 
 ### Adversarial Training
