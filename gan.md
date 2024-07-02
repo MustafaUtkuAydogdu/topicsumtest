@@ -471,21 +471,21 @@ Adaptive Instance Normalization (AdaIN) is a technique used to adjust the style 
 Given:
 - \( x \): Input feature map from the content layer.
 - \( y \): Input feature map from the style layer.
-- \( \mu(x) \): Mean of \( x \).
-- \( \sigma(x) \): Standard deviation of \( x \).
-- \( \mu(y) \): Mean of \( y \).
-- \( \sigma(y) \): Standard deviation of \( y \).
-- \( \alpha \): Style strength parameter.
+- $\( \mu(x) \)$: Mean of \( x \).
+- $\( \sigma(x) \)$: Standard deviation of \( x \).
+- $\( \mu(y) \)$: Mean of \( y \).
+- $\( \sigma(y) \)$: Standard deviation of \( y \).
+- $\( \alpha \)$: Style strength parameter.
 
 The AdaIN operation can be represented as:
 
-\[ \text{AdaIN}(x, y) = \sigma(y) \left( \frac{x - \mu(x)}{\sigma(x)} \right) + \mu(y) \]
+$\[ \text{AdaIN}(x, y) = \sigma(y) \left( \frac{x - \mu(x)}{\sigma(x)} \right) + \mu(y) \]$
 
 Where:
-- \( \frac{x - \mu(x)}{\sigma(x)} \) normalizes the input feature map \( x \) to have zero mean and unit variance.
-- \( \sigma(y) \) scales the normalized feature map to match the standard deviation of the style feature map \( y \).
-- \( \mu(y) \) shifts the scaled feature map to match the mean of the style feature map \( y \).
-- \( \alpha \) controls the strength of the style transfer.
+- $\( \frac{x - \mu(x)}{\sigma(x)} \)$ normalizes the input feature map \( x \) to have zero mean and unit variance.
+- $\( \sigma(y) \)$ scales the normalized feature map to match the standard deviation of the style feature map \( y \).
+- $\( \mu(y) \)$ shifts the scaled feature map to match the mean of the style feature map \( y \).
+- $\( \alpha \)$ controls the strength of the style transfer.
 
 In the context of StyleGAN1, AdaIN is used to inject style information from the intermediate latent space into the generated images, allowing for fine-grained control over various attributes such as color, texture, and structure.
 
