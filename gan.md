@@ -184,33 +184,16 @@ Original Issue: Generator samples confidently classified as fake by the discrimi
 
 **Fix**: Avoid fully training the discriminator (\(D\)) in inner optimization.
 
-\[ 
-\begin{align*}
-L^{(D)}(\theta_{D}, \phi_{G}) &= -\mathbb{E}_{x \sim p_{\textrm{data}}} \left[\log D(x; \theta_D)  \right] - \mathbb{E}_{z \sim p(z)} \left[ \log (1 - D(G(z; \phi_G), \theta_D)) \right] \\
-L^{(G)}(\theta_{D}, \phi_{G}) &= \mathbb{E}_{z \sim p(z)} \left[\log (1 - D(G(z; \phi_G), \theta_D))\right]
-\end{align*}
-\]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/fe129b5c-629f-488f-9318-b8808e814af5)
 
-\[ 
-\begin{align*}
-\theta &\coloneqq \theta - \alpha^{(D)} \nabla_{\theta} L^{(D)}(\theta_{D}, \phi_{G}) \\
-\phi &\coloneqq \phi - \beta^{(G)} \nabla_{\phi} L^{(G)}(\theta_{D}, \phi_{G})
-\end{align*}
-\]
 
 ##### 2nd Alternative:
 Original Issue: Generator samples confidently classified as fake by the discriminator receive no gradient for the generator update.
 
 **Fix**: Use non-saturating loss for when the discriminator is confident about fake.
 
-\[ 
-\begin{align*}
-L^{(D)} &= -\mathbb{E}_{x \sim p_{\textrm{data}}} \left[\log D(x)  \right] - \mathbb{E}_{z \sim p(z)} \left[ \log (1 - D(G(z))) \right] \\
-L^{(G)} &= - L^D \equiv \min_{G} \mathbb{E}_{z \sim p(z)} \log (1 - D(G(z))) \\
-L^{(D)} &= -\mathbb{E}_{x \sim p_{\textrm{data}}} \left[\log D(x)  \right] - \mathbb{E}_{z \sim p(z)} \left[ \log (1 - D(G(z))) \right]   \\
-L^{(G)} &= -\mathbb{E}_{z \sim p(z)} \log(D(G(z)) \equiv \max_{G} \mathbb{E}_{z \sim p(z)} \log(D(G(z))
-\end{align*}
-\]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/c721fa4b-227f-42ac-b165-9b5697747ff4)
+
 
 **Interpretation:** Instead of minimizing the probability of being fake, the non-saturating loss aims to maximize the probability of being real. This helps to provide gradients for the generator even when the discriminator is confident about the fakeness of generated samples.
 
@@ -236,15 +219,8 @@ Remarkably, DC-GAN demonstrates the potential for noise arithmetic, enabling the
 **Feature Matching**
 Feature matching in GANs introduces a supplementary loss term based on the feature representations extracted from an intermediate layer ('f') of the discriminator ('D'). Mathematically, this can be expressed as:
 
-\[ L_{\text{FM}} = \mathbb{E}_{x \sim p_{\text{data}}(x)}[||f(x) - f(G(z))||_2^2] \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/b80d956e-c2e1-42e7-af7e-e6ecf79affae)
 
-Where:
-- \( L_{\text{FM}} \) represents the feature matching loss.
-- \( x \) denotes a real data sample drawn from the true data distribution \( p_{\text{data}}(x) \).
-- \( G(z) \) denotes the output of the generator network \( G \) given a noise vector \( z \).
-- \( f(x) \) represents the feature representation extracted from the intermediate layer 'f' of the discriminator for the real data sample \( x \).
-- \( f(G(z)) \) represents the feature representation extracted from the same intermediate layer 'f' of the discriminator for the generated sample \( G(z) \).
-- \( || \cdot ||_2^2 \) denotes the squared \( L_2 \) norm, measuring the Euclidean distance between the feature representations.
 
 This loss term encourages the generator to produce samples that not only deceive the discriminator but also match the intermediate feature representations of real data samples, thereby enriching GAN training and promoting stability in the learning process.
 
@@ -264,13 +240,8 @@ In essence, the Minibatch Discriminator serves as a mechanism for the GAN to sel
 **Historical Averaging in D parameters:**
  Historical averaging in discriminator parameters involves maintaining a running average of past parameter values during training. To regulate and prevent rapid, large changes in the discriminator (D) parameters during GAN training, applying smoothing over time is essential. This is typically achieved through methods like historical averaging. By incorporating historical information into parameter updates, this regularization technique helps stabilize training and promotes smoother transitions in the discriminator's parameters over successive iterations. Below equation demonstrates the implementation of the algorithm:
 
-\[ L = ||\theta_t - \bar{\theta}||^2 \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/edab74ee-2eb0-41db-87dc-75b34cc749bf)
 
-Where:
-- \( L \) is the regularization loss.
-- \( \theta_t \) represents the current parameters at time \( t \).
-- \( \bar{\theta} \) is the overall historical average of parameters.
-- \( || \cdot ||^2 \) denotes the squared Euclidean norm, measuring the squared difference between the current parameters and the overall historical average.
 
   
 
@@ -308,11 +279,11 @@ The core concept of WGAN involves replacing the discriminator with a critic netw
 WGAN operates on the premise that the dual of the Earth Mover's distance is the supremum of the difference between the expectations of a 1-Lipschitz function across real and generated samples. 
 
 
-\[ W(P, Q) = \inf_{\gamma \in \Pi(P, Q)} \mathbb{E}_{(x, y) \sim \gamma} [||x - y||] \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/a183fa55-e4f7-43ab-ad56-d457bf74658b)
 
 Lipschitz continuity is essential for stability and convergence in optimization, including in Generative Adversarial Networks (GANs). Mathematically, a function \( f \) is Lipschitz continuous if its output change is bounded by a constant multiple of its input change, expressed as:
 
-\[ \| f(x) - f(y) \| \leq L \| x - y \| \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/c39f63b9-b4d1-47a4-a052-8092a6c59166)
 
 This property ensures that a smooth function exhibits a small change in output for a small change in input. In GANs, particularly in Wasserstein GANs (WGANs), enforcing Lipschitz continuity on the discriminator helps stabilize training. This is achieved by constraining the weights of the discriminator to have a bounded spectral norm, typically through a regularization term:
 
@@ -325,21 +296,22 @@ The Kantorovich-Rubinstein duality plays a fundamental role in the formulation o
 
 The Kantorovich-Rubinstein duality is a concept from optimal transport theory, specifically relating to the formulation of the Wasserstein distance (also known as Earth Mover's distance). This duality establishes a connection between the Wasserstein distance and the supremum (or maximum) of a certain class of functions.
 
-In the context of WGAN, the goal is to approximate the Wasserstein distance between the distribution of real data (say \( P_r \)) and the distribution of generated data (say \( P_g \)). The Wasserstein distance \( W(P_r, P_g) \) is defined as:
+In the context of WGAN, the goal is to approximate the Wasserstein distance between the distribution of real data (say $\( P_r \)$) and the distribution of generated data (say $\( P_g \)$). The Wasserstein distance $\( W(P_r, P_g) \$ is defined as:
 
-\[ W(P_r, P_g) = \inf_{\gamma \in \Gamma(P_r, P_g)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) \, d\gamma(x, y) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/1d145eae-c008-4163-b860-10eb135d1b0b)
 
-where \( \Gamma(P_r, P_g) \) represents the set of joint distributions whose marginals are \( P_r \) and \( P_g \), and \( c(x, y) \) is a cost function measuring the "distance" between elements \( x \) and \( y \) in the input space.
+where $\( \Gamma(P_r, P_g) \)$ represents the set of joint distributions whose marginals are $\( P_r \)$ and $\( P_g \)$, and $\( c(x, y) \)$ is a cost function measuring the "distance" between elements \( x \) and \( y \) in the input space.
 
-According to Kantorovich-Rubinstein duality, the Wasserstein distance \( W(P_r, P_g) \) can be expressed as:
+According to Kantorovich-Rubinstein duality, the Wasserstein distance $\( W(P_r, P_g) \)$ can be expressed as:
 
-\[ W(P_r, P_g) = \sup_{\| f \|_{\text{Lip}} \leq 1} \mathbb{E}_{x \sim P_r}[f(x)] - \mathbb{E}_{y \sim P_g}[f(y)] \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/10f74a9b-7a5b-440f-82f7-2a0be829f9c6)
 
-where \( \| f \|_{\text{Lip}} \leq 1 \) denotes that \( f \) is a 1-Lipschitz function (i.e., the Lipschitz constant of \( f \) is less than or equal to 1). This formulation represents the supremum (maximum) of the difference in expectations of a 1-Lipschitz function \( f \) applied to samples from \( P_r \) and \( P_g \).
+where $\( \| f \|_{\text{Lip}} \leq 1 \)$ denotes that \( f \) is a 1-Lipschitz function (i.e., the Lipschitz constant of \( f \) is less than or equal to 1). This formulation represents the supremum (maximum) of the difference in expectations of a 1-Lipschitz function \( f \) applied to samples from $\( P_r \)$ and $\( P_g \)$.
 
 Intuitively, Lipschitz continuity means that the function \( f \) does not "stretch" distances too much. Specifically, the Lipschitz constant \( L \) provides an upper bound on how much the function value can change relative to changes in the input. If \( L = 0 \), \( f \) is called "locally constant"; otherwise, larger values of \( L \) indicate greater permitted variation in the function's values over its domain.
 
-In WGAN, the discriminator (or critic) network \( f \) is trained to approximate this supremum. During training, the critic's objective is to maximize the difference between \( \mathbb{E}_{x \sim P_r}[f(x)] \) and \( \mathbb{E}_{y \sim P_g}[f(y)] \), which effectively estimates the Wasserstein distance between \( P_r \) and \( P_g \).
+In WGAN, the discriminator (or critic) network \( f \) is trained to approximate this supremum. During training, the critic's objective is to maximize the difference between ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/5d48d0ac-0bc7-456f-b0ff-4697e7acc176)
+, which effectively estimates the Wasserstein distance between \( P_r \) and \( P_g \).
 
 By leveraging Kantorovich-Rubinstein duality, WGAN provides a principled way to train the discriminator network to estimate the Wasserstein distance, resulting in more stable and meaningful gradients compared to traditional GANs. This theoretical foundation underpins the effectiveness of WGAN in generating high-quality samples and improving training stability.
 ##### How to ensure Lipschitz Continuity:
