@@ -64,7 +64,7 @@ The min-max game is a concept primarily used in game theory, optimization, and m
 
 The min-max game can be mathematically represented as follows:
 
-$ \min_{G} \max_{D} V(D, G)$ = $\mathbb{E}_{x \sim p_{\text{data}}(x)}[\log D(x)]$ + $\mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))] $
+$\min_{G} \max_{D} V(D, G) $ = $\mathbb{E}_{x \sim p_{\text{data}}(x)}[\log D(x)] $ + $\mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))] $
 
 Let's break down this equation:
 
