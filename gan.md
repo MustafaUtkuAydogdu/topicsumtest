@@ -65,11 +65,11 @@ The min-max game is a concept primarily used in game theory, optimization, and m
 
 The min-max game can be mathematically represented as follows:
 
-\min_{G} \max_{D} V(D, G) = $\mathbb{E}_{x \sim p_{\text{data}}(x)}[\log D(x)] $ + $\mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))] $
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/6536d92b-d7fc-4c24-8bf5-844d298521a5)
 
 Let's break down this equation:
 
-- \( D \) represents the discriminator network, which tries to maximize its ability to distinguish between real (\( x \)) and generated (\( G(z) \)) data.
+- $\( D \)$ represents the discriminator network, which tries to maximize its ability to distinguish between real $(\( x \))$ and generated $(\( G(z) \))$ data.
   
 - \( G \) represents the generator network, which tries to minimize the ability of the discriminator to distinguish between real and generated data.
 
