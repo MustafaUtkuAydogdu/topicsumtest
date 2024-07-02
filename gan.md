@@ -83,41 +83,41 @@ Let's break down this equation:
 
 - \( G(z) \) represents the generated data sample obtained by passing random noise \( z \) through the generator network.
 
-- The first term \( \mathbb{E}_{x\sim p_{\text{data}}(x)}[\log D(x)] \) calculates the expected value of the log-probability that the discriminator assigns to real data samples. The discriminator wants to maximize this value, indicating that it correctly classifies real data as real.
+- The first term ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/916b2b03-894f-40a5-a75b-c56aea1ef9bf) calculates the expected value of the log-probability that the discriminator assigns to real data samples. The discriminator wants to maximize this value, indicating that it correctly classifies real data as real.
   
-- The second term \( \mathbb{E}_{z\sim p_z(z)}[\log(1 - D(G(z)))] \) calculates the expected value of the log-probability that the discriminator assigns to generated (fake) data samples. The generator wants to minimize this value, indicating that it successfully fools the discriminator into classifying fake data as real.
+- The second term ![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/96f849b4-33f9-4e35-8b79-9e053b6571ef) calculates the expected value of the log-probability that the discriminator assigns to generated (fake) data samples. The generator wants to minimize this value, indicating that it successfully fools the discriminator into classifying fake data as real.
 
 By iteratively updating the parameters of the generator and the discriminator networks using gradient descent/ascent based on this min-max objective, the GAN training process seeks a Nash equilibrium where the generator produces samples that are indistinguishable from real data, and the discriminator cannot reliably differentiate between real and fake samples.
 
 ### Discriminator Update:
 
-The objective for the discriminator \( D \) is to maximize the value function \( V(D, G) \). Therefore, the update rule for the discriminator parameters \( \theta_D \) is obtained by taking the gradient of \( V(D, G) \) with respect to \( \theta_D \).
+The objective for the discriminator \( D \) is to maximize the value function \( V(D, G) \). Therefore, the update rule for the discriminator parameters $\( \theta_D \)$ is obtained by taking the gradient of \( V(D, G) \) with respect to $\( \theta_D \)$.
 
 The update rule for the discriminator involves ascending the gradient of the loss function with respect to its parameters:
 
-\[ \theta_D \leftarrow \theta_D + \eta \nabla_{\theta_D} V(D, G) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/84dc3ec2-b20d-4167-beb7-816b61b5d926)
 
 Where:
-- \( \eta \) is the learning rate.
+- $\( \eta \)$ is the learning rate.
 
-The gradient of \( V(D, G) \) with respect to \( \theta_D \) can be computed as:
+The gradient of \( V(D, G) \) with respect to $\( \theta_D \)$ can be computed as:
 
-\[ \nabla_{\theta_D} V(D, G) = \nabla_{\theta_D} \left( \mathbb{E}_{x\sim p_{\text{data}}(x)}[\log D(x)] + \mathbb{E}_{z\sim p_z(z)}[\log(1 - D(G(z)))] \right) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/58872131-0c68-410e-8023-e31c3a2bf08b)
 
 ### Generator Update:
 
-The objective for the generator \( G \) is to minimize the value function \( V(D, G) \). Therefore, the update rule for the generator parameters \( \theta_G \) is obtained by taking the gradient of \( -V(D, G) \) (since we're minimizing) with respect to \( \theta_G \).
+The objective for the generator \( G \) is to minimize the value function \( V(D, G) \). Therefore, the update rule for the generator parameters $\( \theta_G \)$ is obtained by taking the gradient of \( -V(D, G) \) (since we're minimizing) with respect to $\( \theta_G \)$.
 
 The update rule for the generator involves descending the gradient of the negative loss function with respect to its parameters:
 
-\[ \theta_G \leftarrow \theta_G - \eta \nabla_{\theta_G} (-V(D, G)) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/e6fc976c-8714-407b-a1c7-6ecc0b7ca7ac)
 
 Where:
-- \( \eta \) is the learning rate.
+- $\( \eta \)$ is the learning rate.
 
-The gradient of \( -V(D, G) \) with respect to \( \theta_G \) can be computed as:
+The gradient of \( -V(D, G) \) with respect to $\( \theta_G \)$ can be computed as:
 
-\[ \nabla_{\theta_G} (-V(D, G)) = - \nabla_{\theta_G} V(D, G) \]
+![resim](https://github.com/MustafaUtkuAydogdu/topicsumtest/assets/63458049/be6bf821-9e73-40df-8c6e-6fb107b561f3)
 
 
 ### GAN Objective
